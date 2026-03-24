@@ -1,0 +1,127 @@
+components:
+- layout_properties: {slot: btn_submit}
+  name: button_1
+  properties: {text: button_1}
+  type: Button
+- layout_properties: {slot: dd_conflict}
+  name: drop_down_6
+  properties: {}
+  type: DropDown
+- layout_properties: {slot: txt_comments}
+  name: text_area_1
+  properties: {}
+  type: TextArea
+- layout_properties: {slot: dd_general}
+  name: drop_down_5
+  properties: {}
+  type: DropDown
+- layout_properties: {slot: dd_climate}
+  name: drop_down_4
+  properties: {}
+  type: DropDown
+- layout_properties: {slot: dd_planning}
+  name: drop_down_3
+  properties: {}
+  type: DropDown
+- layout_properties: {slot: dd_facilitates}
+  name: drop_down_2
+  properties: {}
+  type: DropDown
+- layout_properties: {slot: dd_contributes}
+  name: drop_down_1
+  properties: {}
+  type: DropDown
+- layout_properties: {slot: name_label}
+  name: label_1
+  properties: {}
+  type: Label
+container:
+  properties:
+    html: |-
+      <div class="page-title">Evaluation Form (High-Fi)</div>
+
+      <div class="window">
+        <div class="window-bar">
+          <div class="dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+          </div>
+        </div>
+
+        <div class="nav">
+          <div>Home</div>
+          <div>Evaluations</div>
+          <div>Profile</div>
+          <div>Help</div>
+        </div>
+
+        <div class="content">
+          <div class="avatar-wrap">
+            <div class="avatar">👤</div>
+          </div>
+
+          <div class="name-box">
+            <span>👤</span>
+            <div anvil-slot="name_label"></div>
+          </div>
+
+          <div class="grid">
+
+            <div class="rating-box">
+              <div class="rating-header">
+                <span>Contributes to Team Project (1-4)</span>
+              </div>
+              <div anvil-slot="dd_contributes"></div>
+            </div>
+
+            <div class="rating-box">
+              <div class="rating-header">
+                <span>Facilitates Contributions of Others (1-4)</span>
+              </div>
+              <div anvil-slot="dd_facilitates"></div>
+            </div>
+
+            <div class="rating-box">
+              <div class="rating-header">
+                <span>Planning and Management (1-4)</span>
+              </div>
+              <div anvil-slot="dd_planning"></div>
+            </div>
+
+            <div class="rating-box">
+              <div class="rating-header">
+                <span>Fosters a Team Climate (1-4)</span>
+              </div>
+              <div anvil-slot="dd_climate"></div>
+            </div>
+
+            <div class="rating-box">
+              <div class="rating-header">
+                <span>General (1-4)</span>
+              </div>
+              <div anvil-slot="dd_general"></div>
+            </div>
+
+            <div class="rating-box">
+              <div class="rating-header">
+                <span>Manages Potential Conflict (1-4)</span>
+              </div>
+              <div anvil-slot="dd_conflict"></div>
+            </div>
+
+          </div>
+
+          <div class="feedback">
+            <div anvil-slot="txt_comments"></div>
+          </div>
+
+          <div class="submit-wrap">
+            <div anvil-slot="btn_submit"></div>
+            <div class="note">All fields required. Rating must be between 1 and 4.</div>
+          </div>
+
+        </div>
+      </div>
+  type: HtmlTemplate
+is_package: true
