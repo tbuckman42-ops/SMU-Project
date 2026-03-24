@@ -1,7 +1,7 @@
-from ._anvil_designer import Form1Template
+from ._anvil_designer import eval_pageTemplate
 from anvil import *
 
-class Form1(Form1Template):
+class eval_page(eval_pageTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)

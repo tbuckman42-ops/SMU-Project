@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Evaluation Form (High-Fi)</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      body {
+        background: #dfe3e8;
+        color: #2f3f52;
+      }
+
+      .page-title {
+        font-size: 22px;
+        color: #6b7785;
+        margin: 8px 0 0 8px;
+        font-weight: 600;
+      }
+
+      .window {
+        width: 1150px;
+        margin: 0 auto;
+        background: #f4f4f4;
+        border: 1px solid #cfd6dc;
+      }
+
+      .window-bar {
+        height: 38px;
+        background: #9eabb8;
+        display: flex;
+        align-items: center;
+        padding: 0 12px;
+      }
+
+      .dots {
+        display: flex;
+        gap: 8px;
+      }
+
+      .dot {
+        width: 13px;
+        height: 13px;
+        border-radius: 50%;
+        background: #8b97a3;
+      }
+
+      .nav {
+        background: #001e68;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        height: 135px;
+        color: white;
+        font-size: 62px;
+        font-weight: 300;
+      }
+
+      .content {
+        padding: 28px 22px 10px;
+        text-align: center;
+      }
+
+      .avatar-wrap {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 6px;
+      }
+
+      .avatar {
+        width: 176px;
+        height: 110px;
+        background: #c0c7d6;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 42px;
+        color: #001e68;
+      }
+
+      .name-box {
+        width: 300px;
+        margin: 0 auto 20px;
+        border: 2px solid #bcc6cf;
+        border-radius: 4px;
+        background: #f9f9f9;
+        height: 54px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        font-size: 22px;
+        font-weight: 700;
+        color: #314255;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 28px 34px;
+        margin-top: 8px;
+      }
+
+      .rating-box {
+        text-align: left;
+      }
+
+      .rating-header {
+        height: 44px;
+        border: 2px solid #bcc6cf;
+        border-radius: 4px;
+        background: #f8f8f8;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 14px;
+        font-size: 17px;
+        color: #314255;
+        margin-bottom: 4px;
+      }
+
+      .arrow {
+        font-size: 16px;
+        color: #314255;
+      }
+
+      .option-list {
+        list-style: none;
+        border: 2px solid #bcc6cf;
+        border-radius: 4px;
+        overflow: hidden;
+        background: #f8f8f8;
+      }
+
+      .option-list li {
+        padding: 14px 14px;
+        border-bottom: 2px solid #d0d7de;
+        font-size: 17px;
+        color: #314255;
+        background: #f7f7f7;
+      }
+
+      .option-list li:last-child {
+        border-bottom: none;
+      }
+
+      .feedback {
+        margin-top: 28px;
+      }
+
+      .feedback textarea {
+        width: 100%;
+        height: 82px;
+        resize: none;
+        border: 2px solid #bcc6cf;
+        border-radius: 4px;
+        padding: 14px;
+        font-size: 16px;
+        color: #314255;
+        background: #f8f8f8;
+        outline: none;
+        }
+
+        .feedback textarea::placeholder {
+        color: #b3c0cd;
+        font-weight: 600;
+        }
+
+        .submit-wrap {
+        text-align: center;
+        margin-top: 8px;
+        }
+
+        .submit-btn {
+        width: 360px;
+        height: 45px;
+        background: #001e68;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        }
+
+        .note {
+        margin: 2px 0 0;
+        font-size: 13px;
+        color: #2f3f52;
+        font-weight: 600;
+        }
+        </style>
+  </head>
+  <body>
+    <div class="page-title">Evaluation Form (High-Fi)</div>
+
+    <div class="window">
+      <div class="window-bar">
+        <div class="dots">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+      </div>
+
+      <div class="nav">
+        <div>Home</div>
+        <div>Evaluations</div>
+        <div>Profile</div>
+        <div>Help</div>
+      </div>
+
+      <div class="content">
+        <div class="avatar-wrap">
+          <div class="avatar">👤</div>
+        </div>
+
+        <div class="name-box">
+          <span>👤</span>
+          <span>Evaluating: John Smith</span>
+        </div>
+
+        <div class="grid">
+          <div class="rating-box">
+            <div class="rating-header">
+              <span>Contributes to Team Project (1-4)</span>
+              <span class="arrow">▼</span>
+            </div>
+            <ul class="option-list">
+              <li>1. Poor</li>
+              <li>2. Acceptable</li>
+              <li>3. Good</li>
+              <li>4. Excellent</li>
+            </ul>
+          </div>
+
+          <div class="rating-box">
+            <div class="rating-header">
+              <span>Facilitates Contributions of Others (1-4)</span>
+              <span class="arrow">▼</span>
+            </div>
+            <ul class="option-list">
+              <li>1. Poor</li>
+              <li>2. Acceptable</li>
+              <li>3. Good</li>
+              <li>4. Excellent</li>
+            </ul>
+          </div>
+
+          <div class="rating-box">
+            <div class="rating-header">
+              <span>Planning and Management (1-4)</span>
+              <span class="arrow">▼</span>
+            </div>
+            <ul class="option-list">
+              <li>1. Poor</li>
+              <li>2. Acceptable</li>
+              <li>3. Good</li>
+              <li>4. Excellent</li>
+            </ul>
+          </div>
+
+          <div class="rating-box">
+            <div class="rating-header">
+              <span>Fosters a Team Climate (1-4)</span>
+              <span class="arrow">▼</span>
+            </div>
+            <ul class="option-list">
+              <li>1. Poor</li>
+              <li>2. Acceptable</li>
+              <li>3. Good</li>
+              <li>4. Excellent</li>
+            </ul>
+          </div>
+
+          <div class="rating-box">
+            <div class="rating-header">
+              <span>General (1-4)</span>
+              <span class="arrow">▼</span>
+            </div>
+            <ul class="option-list">
+              <li>1. Poor</li>
+              <li>2. Acceptable</li>
+              <li>3. Good</li>
+              <li>4. Excellent</li>
+            </ul>
+          </div>
+
+          <div class="rating-box">
+            <div class="rating-header">
+              <span>Manages Potential Conflict (1-4)</span>
+              <span class="arrow">▼</span>
+            </div>
+            <ul class="option-list">
+              <li>1. Poor</li>
+              <li>2. Acceptable</li>
+              <li>3. Good</li>
+              <li>4. Excellent</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="feedback">
+          <textarea placeholder="Type Comments / Feedback Here..."></textarea>
+        </div>
+
+        <div class="submit-wrap">
+          <button class="submit-btn">Submit Evaluation</button>
+          <div class="note">All fields required. Rating must be between 1 and 5.</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
