@@ -46,6 +46,7 @@ class eval_form_final(eval_form_finalTemplate):
 
   @handle("submit_btn", "click")
   def submit_btn_click(self, **event_args):
+      
       if self.contribute_dd.selected_value is None:
         alert("Please complete Contributes to Team Project.")
         return
@@ -69,8 +70,9 @@ class eval_form_final(eval_form_finalTemplate):
       if self.overall_dd.selected_value is None:
         alert("Please complete Overall rating.")
         return
-    
-      alert("Evaluation submitted!")
+
+      
+      open_form('confirmation_page')
   pass
 
   @handle("cancel_btn", "click")
