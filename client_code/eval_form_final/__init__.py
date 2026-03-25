@@ -87,7 +87,9 @@ class eval_form_final(eval_form_finalTemplate):
         ovr_score
       )
 
-      alert(result)
+      alert(f"{result['message']}\n"
+            f"Submission ID: {result['submission_id']}\n"
+            f"Evaluation ID: {result['evaluation_id']}")
         
       open_form('confirmation_page')
     except Exception as e:
