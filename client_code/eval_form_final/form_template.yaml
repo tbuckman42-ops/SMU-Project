@@ -24,7 +24,7 @@ components:
   type: FlowPanel
 - components:
   - layout_properties: {width: 303.2109375}
-    name: student_dropdown
+    name: student_dd
     properties: {align: full, font_size: 14, include_placeholder: true, placeholder: 'Choose a Student to Evaluate:'}
     type: DropDown
   layout_properties: {grid_position: 'XBPAUJ,FRXJCL'}
@@ -38,7 +38,7 @@ components:
 - event_bindings: {}
   layout_properties: {grid_position: 'KQMYGR,CDGOVI'}
   name: button_1
-  properties: {text: button_1}
+  properties: {text: button_1, visible: false}
   type: Button
 - components:
   - components:

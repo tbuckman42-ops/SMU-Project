@@ -23,21 +23,27 @@ components:
   type: FlowPanel
 - components:
   - components:
-    - layout_properties: {width: 287.19896875}
-      name: enter_id
-      properties: {italic: true, placeholder: 'Enter Student ID:'}
-      type: TextBox
-    - layout_properties: {width: 275.67534375}
-      name: enter_gid
-      properties: {italic: true, placeholder: 'Enter Group ID:'}
-      type: TextBox
+    - event_bindings: {}
+      layout_properties: {width: 176.031625}
+      name: course_id_dd
+      properties: {include_placeholder: true, placeholder: Select Course ID}
+      type: DropDown
+    - layout_properties: {width: 172.84375}
+      name: group_name_dd
+      properties: {include_placeholder: true, placeholder: Select Group ID}
+      type: DropDown
+    - layout_properties: {}
+      name: due_date_picker
+      properties: {placeholder: 'Select Due Date:'}
+      type: DatePicker
     layout_properties: {grid_position: 'SKMFUQ,QOHAZB'}
     name: flow_panel_2
     properties: {align: center}
     type: FlowPanel
-  - layout_properties: {grid_position: 'JPEWNC,NTMGRZ'}
-    name: load_group
-    properties: {background: 'theme:Primary 700', border: '', foreground: 'theme:White', text: Load Group}
+  - event_bindings: {}
+    layout_properties: {grid_position: 'JPEWNC,NTMGRZ'}
+    name: create_eval_btn
+    properties: {background: 'theme:Primary 700', border: '', foreground: 'theme:White', text: Create Evaluation}
     type: Button
   layout_properties: {grid_position: 'SIYOOA,VRPWPU'}
   name: card_1
