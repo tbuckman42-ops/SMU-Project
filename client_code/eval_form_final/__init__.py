@@ -46,53 +46,53 @@ class eval_form_final(eval_form_finalTemplate):
 
   @handle("submit_btn", "click")
   def submit_btn_click(self, **event_args):
+    contributes_score = self.contribute_dd.selected_value
+    facilitates_score = self.facilitates_dd.selected_value
+    planning_mgt_score = self.planning_dd.selected_value
+    team_climate_score = self.fosters_dd.selected_value
+    conflict_mgt_score = self.manages_dd.selected_value
+    ovr_score = self.overall_dd.selected_value
       
-      if self.contribute_dd.selected_value is None:
-        alert("Please complete Contributes to Team Project.")
-        return
+    if self.contribute_dd.selected_value is None:
+      alert("Please complete Contributes to Team Project.")
+      return
 
-      if self.facilitates_dd.selected_value is None:
-        alert("Please complete Facilitates Contributions of Others.")
-        return
+    if self.facilitates_dd.selected_value is None:
+      alert("Please complete Facilitates Contributions of Others.")
+      return
 
-      if self.planning_dd.selected_value is None:
-        alert("Please complete Planning and Management.")
-        return
+    if self.planning_dd.selected_value is None:
+      alert("Please complete Planning and Management.")
+      return
 
-      if self.fosters_dd.selected_value is None:
-        alert("Please complete Fosters a Team Climate.")
-        return
+    if self.fosters_dd.selected_value is None:
+      alert("Please complete Fosters a Team Climate.")
+      return
     
-      if self.manages_dd.selected_value is None:
-        alert("Please complete Manages Potential Conflict.")
-        return
+    if self.manages_dd.selected_value is None:
+      alert("Please complete Manages Potential Conflict.")
+      return
     
-      if self.overall_dd.selected_value is None:
-        alert("Please complete Overall rating.")
-        return
-      try:
-        contribute = self.contribute_dd.selected_value
-        facilitates = self.facilitates_dd.selected_value
-        planning = self.planning_dd.selected_value
-        fosters = self.fosters_dd.selected_value
-        manages = self.manages_dd.selected_value
-        overall = self.overall_dd.selected_value
+    if self.overall_dd.selected_value is None:
+      alert("Please complete Overall rating.")
+      return
+    try:
+      result = anvil.server.call(
+        "save_evaluation_score",
+        contributes_score,
+        facilitates_score,
+        planning_mgt_score,
+        team_climate_score,
+        conflict_mgt_score,
+        ovr_score
+      )
 
-        result = anvil.server.call(
-          "save_evaluation_score",
-          contribute,
-          facilitates,
-          planning,
-          fosters,
-          manages,
-          overall
-        )
-
-      
-        open_form('confirmation_page')
-      except Exception as e:
-        alert(f"Submit failed: {e}")
-        pass
+      alert(result)
+        
+      open_form('confirmation_page')
+    except Exception as e:
+      alert(f"Submit failed: {e}")
+    pass
 
   @handle("cancel_btn", "click")
   def cancel_btn_click(self, **event_args):
