@@ -8,6 +8,12 @@ class confirmation_page(confirmation_pageTemplate):
     
     self.init_components(**properties)
     self.name_area.width = "100px"
+
     
     
     # Any code you write here will run before the form opens.
+
+  @handle("home_btn", "click")
+  def home_btn_click(self, **event_args):
+    open_form('home_page')
+    pass

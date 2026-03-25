@@ -3,7 +3,8 @@ components:
   name: name_area
   properties: {align: center, height: 34.93359375}
   type: TextArea
-- layout_properties: {slot: dashboard_button_slot}
+- event_bindings: {}
+  layout_properties: {slot: dashboard_button_slot}
   name: home_btn
   properties: {text: Return to Home Page}
   type: Button

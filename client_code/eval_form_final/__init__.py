@@ -85,9 +85,6 @@ class eval_form_final(eval_form_finalTemplate):
       alert("Please complete Contributes to Team Project.")
       return
     
-    if self.evaluated_student_id.selected_value is None:
-      alert("Please select a student")
-      return
 
     if self.facilitates_dd.selected_value is None:
       alert("Please complete Facilitates Contributions of Others.")
