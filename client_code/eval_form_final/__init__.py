@@ -123,6 +123,12 @@ class eval_form_final(eval_form_finalTemplate):
     open_form('home_page')
     pass
 
+  @handle("button_1", "click")
+  def button_1_click(self, **event_args):
+    result = anvil.server.call("test_uplink")
+    alert(result)
+    pass
+
   
 
  
