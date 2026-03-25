@@ -1,11 +1,11 @@
 components:
 - components:
   - layout_properties: {}
-    name: button_1
+    name: home_btn
     properties: {foreground: 'theme:White', text: Home}
     type: Button
   - layout_properties: {}
-    name: button_2
+    name: eval_btn
     properties: {foreground: 'theme:White', text: Evaluations}
     type: Button
   - layout_properties: {}

@@ -10,6 +10,6 @@ services:
 - client_config: {}
   server_config: {}
   source: /runtime/services/tables.yml
-startup: {module: eval_form_final, type: form}
+startup: {module: home_page, type: form}
 startup_form: null
 uplink_visible: true
