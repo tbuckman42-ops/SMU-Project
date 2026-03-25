@@ -137,7 +137,7 @@ class eval_form_final(eval_form_finalTemplate):
       self.fosters_dd,
       self.manages_dd,
       self.overall_dd,
-      self.student_dropdown
+      self.student_dd
     ]
 
     for dd in dropdown:
