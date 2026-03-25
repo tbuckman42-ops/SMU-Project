@@ -9,3 +9,8 @@ class home_page(home_pageTemplate):
     self.init_components(**properties)
 
     # Any code you write here will run before the form opens.
+
+  @handle("eval_btn", "click")
+  def eval_btn_click(self, **event_args):
+    open_form('eval_form_final')
+    pass

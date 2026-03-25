@@ -70,10 +70,29 @@ class eval_form_final(eval_form_finalTemplate):
       if self.overall_dd.selected_value is None:
         alert("Please complete Overall rating.")
         return
+      try:
+        contribute = self.contribute_dd.selected_value
+        facilitates = self.facilitates_dd.selected_value
+        planning = self.planning_dd.selected_value
+        fosters = self.fosters_dd.selected_value
+        manages = self.manages_dd.selected_value
+        overall = self.overall_dd.selected_value
+
+        result = anvil.server.call(
+          "save_evaluation_score",
+          contribute,
+          facilitates,
+          planning,
+          fosters,
+          manages,
+          overall
+        )
 
       
-      open_form('confirmation_page')
-  pass
+        open_form('confirmation_page')
+      except Exception as e:
+        alert(f"Submit failed: {e}")
+        pass
 
   @handle("cancel_btn", "click")
   def cancel_btn_click(self, **event_args):
@@ -90,6 +109,16 @@ class eval_form_final(eval_form_finalTemplate):
     for dd in dropdown:
         dd.selected_value = None
         
+    pass
+
+  @handle("eval_btn", "click")
+  def eval_btn_click(self, **event_args):
+    open_form('eval_form_final')
+    pass
+
+  @handle("home_btn", "click")
+  def home_btn_click(self, **event_args):
+    open_form('home_page')
     pass
 
   

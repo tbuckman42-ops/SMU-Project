@@ -4,7 +4,8 @@ components:
     name: home_btn
     properties: {foreground: 'theme:White', text: Home}
     type: Button
-  - layout_properties: {}
+  - event_bindings: {}
+    layout_properties: {}
     name: eval_btn
     properties: {foreground: 'theme:White', text: Evaluations}
     type: Button
@@ -20,7 +21,25 @@ components:
   name: flow_panel_1
   properties: {align: center, background: '#07123b', vertical_align: full, visible: true}
   type: FlowPanel
-- layout_properties: {grid_position: 'SIYOOA,VRPWPU'}
+- components:
+  - components:
+    - layout_properties: {width: 287.19896875}
+      name: enter_id
+      properties: {italic: true, placeholder: 'Enter Student ID:'}
+      type: TextBox
+    - layout_properties: {width: 275.67534375}
+      name: enter_gid
+      properties: {italic: true, placeholder: 'Enter Group ID:'}
+      type: TextBox
+    layout_properties: {grid_position: 'SKMFUQ,QOHAZB'}
+    name: flow_panel_2
+    properties: {align: center}
+    type: FlowPanel
+  - layout_properties: {grid_position: 'JPEWNC,NTMGRZ'}
+    name: load_group
+    properties: {background: 'theme:Primary 700', border: '', foreground: 'theme:White', text: Load Group}
+    type: Button
+  layout_properties: {grid_position: 'SIYOOA,VRPWPU'}
   name: card_1
   properties: {role: card}
   type: ColumnPanel
