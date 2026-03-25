@@ -55,7 +55,8 @@ components:
         items: ['0', '1', '2', '3', '4']
         placeholder: Facilitates Contributions of others (1-4)
       type: DropDown
-    - layout_properties: {width: 200}
+    - event_bindings: {}
+      layout_properties: {width: 200}
       name: planning_dd
       properties:
         align: full
