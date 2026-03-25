@@ -48,9 +48,9 @@ class eval_form_final(eval_form_finalTemplate):
   def submit_btn_click(self, **event_args):
     contributes_score = self.contribute_dd.selected_value
     facilitates_score = self.facilitates_dd.selected_value
-    planning_mgt_score = self.planning_dd.selected_value
+    planning_mgmt_score = self.planning_dd.selected_value
     team_climate_score = self.fosters_dd.selected_value
-    conflict_mgt_score = self.manages_dd.selected_value
+    conflict_mgmt_score = self.manages_dd.selected_value
     ovr_score = self.overall_dd.selected_value
       
     if self.contribute_dd.selected_value is None:
@@ -81,9 +81,9 @@ class eval_form_final(eval_form_finalTemplate):
         "save_evaluation_score",
         contributes_score,
         facilitates_score,
-        planning_mgt_score,
+        planning_mgmt_score,
         team_climate_score,
-        conflict_mgt_score,
+        conflict_mgmt_score,
         ovr_score
       )
 
