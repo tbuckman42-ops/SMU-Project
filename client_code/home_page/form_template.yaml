@@ -1,6 +1,7 @@
 components:
 - components:
-  - layout_properties: {}
+  - event_bindings: {}
+    layout_properties: {}
     name: home_btn
     properties: {foreground: 'theme:White', text: Home}
     type: Button

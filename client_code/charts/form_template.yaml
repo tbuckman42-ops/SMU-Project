@@ -1,4 +1,33 @@
 components:
+- components:
+  - components:
+    - event_bindings: {}
+      layout_properties: {}
+      name: home_btn
+      properties: {foreground: 'theme:White', text: Home}
+      type: Button
+    - event_bindings: {}
+      layout_properties: {}
+      name: eval_btn
+      properties: {foreground: 'theme:White', text: Evaluations}
+      type: Button
+    - layout_properties: {}
+      name: button_3
+      properties: {foreground: 'theme:White', text: Profile}
+      type: Button
+    - event_bindings: {}
+      layout_properties: {expand: false, width: 33}
+      name: chart_btn
+      properties: {foreground: 'theme:White', role: null, text: Charts}
+      type: Button
+    layout_properties: {width: 960.03528125}
+    name: flow_panel_2
+    properties: {align: center, background: '#07123b', vertical_align: full, visible: true}
+    type: FlowPanel
+  layout_properties: {grid_position: 'EAXXBC,VNTPZB'}
+  name: flow_panel_1
+  properties: {}
+  type: FlowPanel
 - layout_properties: {grid_position: 'GEUDVN,LYLTOB'}
   name: image_1
   properties: {height: 248.61328125, horizontal_align: center, source: _/theme/Bar_Chart_Target_Line.png}

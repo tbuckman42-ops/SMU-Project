@@ -85,6 +85,7 @@ class home_page(home_pageTemplate):
     open_form('charts')
     pass
 
+  
 
 
   

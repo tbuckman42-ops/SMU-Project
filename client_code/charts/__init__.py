@@ -9,3 +9,8 @@ class charts(chartsTemplate):
     self.init_components(**properties)
 
     # Any code you write here will run before the form opens.
+
+  @handle("home_btn", "click")
+  def home_btn_click(self, **event_args):
+    open_form('home_page')
+    pass
