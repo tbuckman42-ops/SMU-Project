@@ -1,10 +1,11 @@
 from ._anvil_designer import eval_form_finalTemplate
 from anvil import *
 import anvil.server
+import anvil.http
 
 
 class eval_form_final(eval_form_finalTemplate):
-  def __init__(self, evaluation_id=None, group_name=None, **properties):
+  def __init__(self, evaluation_id=None, group_name=None, evaluator_student_id=None, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
     self.submit_btn.background = "#07123b"
@@ -39,9 +40,10 @@ class eval_form_final(eval_form_finalTemplate):
     self.evaluation_id = evaluation_id
     self.group_name = group_name
     
+    
 
     # replace later with actual logged-in student ID
-    self.evaluator_student_id = "S001"
+    self.evaluator_student_id = evaluator_student_id
     self.load_students()
 
     # optional labels if you want to display info on the page
@@ -58,7 +60,7 @@ class eval_form_final(eval_form_finalTemplate):
       "get_students_for_group",
       self.group_name,
       self.evaluator_student_id
-    )
+      )
     except Exception as e:
       alert(f"Could not load students: {e}")
 
@@ -118,6 +120,9 @@ class eval_form_final(eval_form_finalTemplate):
         conflict_mgmt_score,
         overall_score
       )
+      alert("Submitted successfully!")
+
+      
 
       alert(f"{result['message']}\n"
             f"Submission ID: {result['submission_id']}")
@@ -125,8 +130,16 @@ class eval_form_final(eval_form_finalTemplate):
         
       open_form('confirmation_page')
     except Exception as e:
+    
       alert(f"Submit failed: {e}")
-    pass
+    try:
+      payload = {
+        "student_name": self.student_dd.selected_value
+      }
+      result = anvil.server.call("send_to_zoho", payload)
+      alert("Submitted successfully!")
+    except Exception as e:
+      alert(f"Error: {e}")
 
   @handle("cancel_btn", "click")
   def cancel_btn_click(self, **event_args):

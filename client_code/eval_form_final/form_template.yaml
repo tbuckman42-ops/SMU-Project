@@ -15,8 +15,8 @@ components:
     properties: {foreground: 'theme:White', text: Profile}
     type: Button
   - layout_properties: {expand: false, width: 33}
-    name: help_button
-    properties: {foreground: 'theme:White', role: null, text: Help}
+    name: chart_btn
+    properties: {foreground: 'theme:White', role: null, text: Charts}
     type: Button
   layout_properties: {full_width_row: true, grid_position: 'NHRFDS,JOOHHA', row_background: 'theme:Primary 700'}
   name: flow_panel_1

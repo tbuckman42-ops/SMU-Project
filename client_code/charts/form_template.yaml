@@ -1,0 +1,15 @@
+components:
+- layout_properties: {grid_position: 'GEUDVN,LYLTOB'}
+  name: image_1
+  properties: {height: 248.61328125, horizontal_align: center, source: _/theme/Bar_Chart_Target_Line.png}
+  type: Image
+- layout_properties: {grid_position: 'EXTUXX,BYTYHQ'}
+  name: image_2
+  properties: {height: 245.18359375, horizontal_align: center, source: _/theme/Screenshot (1175).png}
+  type: Image
+- layout_properties: {grid_position: 'SVRWLE,KTIPIO'}
+  name: image_3
+  properties: {height: 200.1875, horizontal_align: center, source: _/theme/Screenshot (1174).png}
+  type: Image
+container: {type: ColumnPanel}
+is_package: true

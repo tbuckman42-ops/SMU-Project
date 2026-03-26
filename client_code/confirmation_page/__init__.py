@@ -7,7 +7,8 @@ class confirmation_page(confirmation_pageTemplate):
   def __init__(self, **properties):
     
     self.init_components(**properties)
-    self.name_area.width = "100px"
+    
+   
 
     
     

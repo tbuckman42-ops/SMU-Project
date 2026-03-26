@@ -13,9 +13,10 @@ components:
     name: button_3
     properties: {foreground: 'theme:White', text: Profile}
     type: Button
-  - layout_properties: {expand: false, width: 33}
-    name: help_button
-    properties: {foreground: 'theme:White', role: null, text: Help}
+  - event_bindings: {}
+    layout_properties: {expand: false, width: 33}
+    name: chart_btn
+    properties: {foreground: 'theme:White', role: null, text: Charts}
     type: Button
   layout_properties: {grid_position: 'ZDLFRW,CJFUER'}
   name: flow_panel_1
@@ -24,13 +25,17 @@ components:
 - components:
   - components:
     - event_bindings: {}
-      layout_properties: {width: 176.031625}
+      layout_properties: {}
       name: course_id_dd
       properties: {include_placeholder: true, placeholder: Select Course ID}
       type: DropDown
-    - layout_properties: {width: 172.84375}
+    - layout_properties: {}
       name: group_name_dd
       properties: {include_placeholder: true, placeholder: Select Group ID}
+      type: DropDown
+    - layout_properties: {}
+      name: student_name_dd
+      properties: {include_placeholder: true, placeholder: 'Select Your Name:'}
       type: DropDown
     - layout_properties: {}
       name: due_date_picker
