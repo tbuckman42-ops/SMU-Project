@@ -238,5 +238,7 @@ components:
   name: flow_panel_5
   properties: {align: justify}
   type: FlowPanel
-container: {type: ColumnPanel}
+container:
+  event_bindings: {}
+  type: ColumnPanel
 is_package: true

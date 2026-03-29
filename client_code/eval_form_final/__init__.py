@@ -68,7 +68,6 @@ class eval_form_final(eval_form_finalTemplate):
 
   
 
-   
 
     
    
@@ -173,6 +172,8 @@ class eval_form_final(eval_form_finalTemplate):
     result = anvil.server.call("test_uplink")
     alert(result)
     pass
+
+  
 
   
 
