@@ -1,0 +1,59 @@
+components:
+- components:
+  - event_bindings: {}
+    layout_properties: {}
+    name: home_btn
+    properties: {foreground: 'theme:White', text: Home}
+    type: Button
+  - event_bindings: {}
+    layout_properties: {}
+    name: eval_btn
+    properties: {foreground: 'theme:White', text: Evaluations}
+    type: Button
+  - layout_properties: {}
+    name: button_3
+    properties: {foreground: 'theme:White', text: Profile}
+    type: Button
+  - event_bindings: {}
+    layout_properties: {expand: false, width: 33}
+    name: chart_btn
+    properties: {foreground: 'theme:White', role: null, text: Charts}
+    type: Button
+  layout_properties: {grid_position: 'UBMHYW,SHGODD'}
+  name: flow_panel_1
+  properties: {align: center, background: '#07123b', vertical_align: full, visible: true}
+  type: FlowPanel
+- components:
+  - layout_properties: {}
+    name: search_student
+    properties: {placeholder: 'Search for a Student: '}
+    type: TextBox
+  - layout_properties: {width: 199.39460546875}
+    name: student_course_dd
+    properties: {include_placeholder: true, placeholder: 'Filter by Course:'}
+    type: DropDown
+  - layout_properties: {}
+    name: student_g_dd
+    properties: {include_placeholder: true, placeholder: 'Filter by Group: '}
+    type: DropDown
+  layout_properties: {grid_position: 'DLMGHD,TUYEWR'}
+  name: nav_bar
+  properties: {align: left}
+  type: FlowPanel
+- components:
+  - name: repeating_panel_1
+    properties: {item_template: tabular_search.RowTemplate3}
+    type: RepeatingPanel
+  layout_properties: {grid_position: 'TYPNHC,RYNYSZ'}
+  name: data_grid_1
+  properties:
+    border: solid
+    columns:
+    - {data_key: column_1, id: JKSDUP, title: Student ID}
+    - {data_key: column_2, id: VJQQOR, title: First Name}
+    - {data_key: column_3, id: OJLQEN, title: Last Name}
+    - {data_key: column_1, id: TYAZJL, title: Course}
+    - {data_key: column_4, id: PXNGDW, title: Group}
+  type: DataGrid
+container: {type: ColumnPanel}
+is_package: true

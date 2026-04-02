@@ -13,6 +13,9 @@ unique_ids:
     home_page: '1774444739821669303411080.8772'
     home_page.RowTemplate2: '1774444845216618339193756.252'
     login: '1774830701290697728756977.0884'
+    tabular_search: '1775147978901830828387522.7783'
+    tabular_search.ItemTemplate1: '1775148263846336354661710.76624'
+    tabular_search.RowTemplate3: '1775148246612126528808018.32834'
   modules: {}
   scripts: {}
   server_modules:
