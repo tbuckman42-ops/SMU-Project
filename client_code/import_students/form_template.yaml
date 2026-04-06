@@ -1,0 +1,39 @@
+components:
+- components:
+  - event_bindings: {}
+    layout_properties: {}
+    name: home_btn
+    properties: {foreground: 'theme:White', text: Home}
+    type: Button
+  - event_bindings: {}
+    layout_properties: {}
+    name: eval_btn
+    properties: {foreground: 'theme:White', text: Evaluations}
+    type: Button
+  - layout_properties: {}
+    name: button_3
+    properties: {foreground: 'theme:White', text: Profile}
+    type: Button
+  - layout_properties: {expand: false, width: 33}
+    name: chart_btn
+    properties: {foreground: 'theme:White', role: null, text: Charts}
+    type: Button
+  layout_properties: {grid_position: 'UZDHTB,JKIKHB'}
+  name: flow_panel_1
+  properties: {align: center, background: '#07123b', vertical_align: full, visible: true}
+  type: FlowPanel
+- components:
+  - layout_properties: {}
+    name: import_students
+    properties:
+      background: ''
+      foreground: theme:White
+      text: |
+        Import CSV File
+    type: Button
+  layout_properties: {grid_position: 'ZTHAGN,XLFDFO'}
+  name: flow_panel_2
+  properties: {align: center}
+  type: FlowPanel
+container: {type: ColumnPanel}
+is_package: true
