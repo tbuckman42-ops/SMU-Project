@@ -23,8 +23,8 @@ components:
   properties: {align: center, background: '#07123b', vertical_align: full, visible: true}
   type: FlowPanel
 - layout_properties: {grid_position: 'UOOUAN,DTYAVT'}
-  name: import_students
-  properties: {align: center, background: '#07123b', foreground: 'theme:White', role: headline, text: Import Student List}
+  name: import_group
+  properties: {align: center, background: '#07123b', foreground: 'theme:White', role: headline, text: Import Group List}
   type: Label
 - components:
   - layout_properties: {}
@@ -36,17 +36,19 @@ components:
   properties: {align: center}
   type: FlowPanel
 - components:
-  - name: repeating_panel_student
+  - name: repeating_panel_group
     properties: {item_template: import_students.RowTemplate5}
     type: RepeatingPanel
   layout_properties: {grid_position: 'CXWCAI,YTTVFL'}
-  name: student_data
+  name: group_data
   properties:
     columns:
-    - {data_key: column_1, id: JKSDUP, title: Student Name}
+    - {data_key: column_1, id: JKSDUP, title: Group ID}
     - {data_key: column_4, id: DYCKJS, title: Student ID}
-    - {data_key: column_2, id: VJQQOR, title: Email}
-    - {data_key: column_3, id: OJLQEN, title: Group}
+    - {data_key: column_2, id: VJQQOR, title: Course ID}
+    - {data_key: column_3, id: OJLQEN, title: Group Name}
+    - {data_key: column_1, id: VXVLSS, title: Time Created}
+    - {data_key: column_2, id: RQGXDQ, title: Due Date}
   type: DataGrid
 - components:
   - layout_properties: {}
