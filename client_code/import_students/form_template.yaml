@@ -47,10 +47,10 @@ components:
   name: student_data
   properties:
     columns:
-    - {data_key: column_1, id: JKSDUP, title: Student Name}
     - {data_key: column_4, id: DYCKJS, title: Student ID}
+    - {data_key: column_1, id: JKSDUP, title: First Name}
+    - {data_key: column_3, id: OJLQEN, title: Last Name}
     - {data_key: column_2, id: VJQQOR, title: Email}
-    - {data_key: column_3, id: OJLQEN, title: Group Name}
   type: DataGrid
 - components:
   - layout_properties: {}
