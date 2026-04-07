@@ -18,6 +18,10 @@ components:
     name: chart_btn
     properties: {foreground: 'theme:White', role: null, text: Charts}
     type: Button
+  - layout_properties: {}
+    name: dashboard_btn
+    properties: {foreground: 'theme:White', role: null, text: Prof Dashboard}
+    type: Button
   layout_properties: {grid_position: 'UZDHTB,JKIKHB'}
   name: flow_panel_1
   properties: {align: center, background: '#07123b', vertical_align: full, visible: true}

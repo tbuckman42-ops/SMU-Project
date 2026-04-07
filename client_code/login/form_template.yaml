@@ -43,7 +43,8 @@ components:
     name: forgot_pword
     properties: {background: '#f31212', foreground: 'theme:White', text: 'Forgot Password?'}
     type: Button
-  - layout_properties: {}
+  - event_bindings: {}
+    layout_properties: {}
     name: login_btn
     properties: {background: '#0dba21', foreground: 'theme:White', text: Login}
     type: Button
