@@ -39,13 +39,13 @@ components:
   - name: repeating_panel_courses
     properties: {item_template: import_students.RowTemplate5}
     type: RepeatingPanel
-  layout_properties: {grid_position: 'CXWCAI,YTTVFL'}
+  layout_properties: {full_width_row: false, grid_position: 'CXWCAI,YTTVFL'}
   name: course_data
   properties:
     columns:
     - {data_key: column_1, id: JKSDUP, title: Course Name}
     - {data_key: column_4, expand: false, id: DYCKJS, title: Course ID, width: 320.4609375}
-    - {data_key: column_2, id: VJQQOR, title: Professor ID}
+    - {data_key: column_2, expand: false, id: VJQQOR, title: Professor ID}
   type: DataGrid
 - components:
   - layout_properties: {}
