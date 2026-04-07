@@ -7,10 +7,8 @@ import anvil.users
 import anvil.server
 import anvil.http
 
-
 class eval_form_final(eval_form_finalTemplate):
   def __init__(self, evaluation_id=None, group_name=None, evaluator_student_id=None, **properties):
-    # Set Form properties and Data Bindings.
     self.init_components(**properties)
     self.submit_btn.background = "#07123b"
     self.contribute_dd.width = "200px"
@@ -20,6 +18,7 @@ class eval_form_final(eval_form_finalTemplate):
     self.facilitates_dd.width = "200px"
     self.planning_dd.width = "200px"
     self.student_dd.width = "300px"
+
     contribute_items = [("Contributes to Team Project", None), ("0- Never", 0), ("1- Sometimes", 1), ("2 Usually", 2), ("3- Regularly", 3), ("4- Always", 4)]
     facilitates_items = [("Facilitates Contributions of Others", None), ("0- Never", 0), ("1- Sometimes", 1), ("2 Usually", 2), ("3- Regularly", 3), ("4- Always", 4)]
     planning_items = [("Plans & Manages Team Project Goals", None), ("0- Never", 0), ("1- Sometimes", 1), ("2 Usually", 2), ("3- Regularly", 3), ("4- Always", 4)]
@@ -43,38 +42,18 @@ class eval_form_final(eval_form_finalTemplate):
 
     self.evaluation_id = evaluation_id
     self.group_name = group_name
-    
-    
-
-    # replace later with actual logged-in student ID
     self.evaluator_student_id = evaluator_student_id
     self.load_students()
-
-    # optional labels if you want to display info on the page
-    # self.evaluation_id_label.text = self.evaluation_id
-    # self.group_name_label.text = self.group_name
-    # self.course_id_label.text = self.course_id
-
-        
-
 
   def load_students(self):
     try:
       self.student_dd.items = anvil.server.call(
-      "get_students_for_group",
-      self.group_name,
-      self.evaluator_student_id
+        "get_students_for_group",
+        self.group_name,
+        self.evaluator_student_id
       )
     except Exception as e:
       alert(f"Could not load students: {e}")
-
-    
-
-  
-
-
-    
-   
 
   @handle("submit_btn", "click")
   def submit_btn_click(self, **event_args):
@@ -85,28 +64,22 @@ class eval_form_final(eval_form_finalTemplate):
     team_climate_score = self.fosters_dd.selected_value
     conflict_mgmt_score = self.manages_dd.selected_value
     overall_score = self.overall_dd.selected_value
-      
+
     if self.contribute_dd.selected_value is None:
       alert("Please complete Contributes to Team Project.")
       return
-    
-
     if self.facilitates_dd.selected_value is None:
       alert("Please complete Facilitates Contributions of Others.")
       return
-
     if self.planning_dd.selected_value is None:
       alert("Please complete Planning and Management.")
       return
-
     if self.fosters_dd.selected_value is None:
       alert("Please complete Fosters a Team Climate.")
       return
-    
     if self.manages_dd.selected_value is None:
       alert("Please complete Manages Potential Conflict.")
       return
-    
     if self.overall_dd.selected_value is None:
       alert("Please complete Overall rating.")
       return
@@ -114,68 +87,56 @@ class eval_form_final(eval_form_finalTemplate):
       result = anvil.server.call(
         "save_evaluation_score",
         self.evaluation_id,
-        self.evaluator_student_id,
-        evaluated_student_id,
-        contributes_score,
-        facilitates_score,
-        planning_mgmt_score,
-        team_climate_score,
-        conflict_mgmt_score,
-        overall_score
-      )
-      alert("Submitted successfully!")
+                self.evaluator_student_id,
+                evaluated_student_id,
+                contributes_score,
+                facilitates_score,
+                planning_mgmt_score,
+                team_climate_score,
+                conflict_mgmt_score,
+                overall_score
+            )
+            alert(f"{result['message']}\nSubmission ID: {result['submission_id']}")
+            open_form('confirmation_page')
+        except Exception as e:
+            alert(f"Submit failed: {e}")
+        try:
+            payload = {"student_name": self.student_dd.selected_value}
+            result = anvil.server.call("send_to_zoho", payload)
+            alert("Submitted successfully!")
+        except Exception as e:
+            alert(f"Error: {e}")
 
-      
+    @handle("cancel_btn", "click")
+    def cancel_btn_click(self, **event_args):
+        for dd in [self.contribute_dd, self.facilitates_dd, self.planning_dd,
+                   self.fosters_dd, self.manages_dd, self.overall_dd, self.student_dd]:
+            dd.selected_value = None
 
-      alert(f"{result['message']}\n"
-            f"Submission ID: {result['submission_id']}")
-            
-        
-      open_form('confirmation_page')
-    except Exception as e:
-    
-      alert(f"Submit failed: {e}")
-    try:
-      payload = {
-        "student_name": self.student_dd.selected_value
-      }
-      result = anvil.server.call("send_to_zoho", payload)
-      alert("Submitted successfully!")
-    except Exception as e:
-      alert(f"Error: {e}")
+    @handle("home_btn", "click")
+    def home_btn_click(self, **event_args):
+        open_form('home_page')
 
-  @handle("cancel_btn", "click")
-  def cancel_btn_click(self, **event_args):
-    dropdown = [
-      self.contribute_dd,
-      self.facilitates_dd,
-      self.planning_dd,
-      self.fosters_dd,
-      self.manages_dd,
-      self.overall_dd,
-      self.student_dd
-    ]
+    @handle("eval_btn", "click")
+    def eval_btn_click(self, **event_args):
+        open_form('eval_form_final')
 
-    for dd in dropdown:
-        dd.selected_value = None
-        
-    pass
+    @handle("button_3", "click")
+    def button_3_click(self, **event_args):
+        open_form('tabular_search')
 
-  @handle("eval_btn", "click")
-  def eval_btn_click(self, **event_args):
-    open_form('eval_form_final')
-    pass
+    @handle("chart_btn", "click")
+    def chart_btn_click(self, **event_args):
+        open_form('charts')
 
-  @handle("home_btn", "click")
-  def home_btn_click(self, **event_args):
-    open_form('home_page')
-    pass
+    @handle("dashboard_btn", "click")
+    def dashboard_btn_click(self, **event_args):
+        open_form('professor_dashboard')
 
-  @handle("button_1", "click")
-  def button_1_click(self, **event_args):
-    result = anvil.server.call("test_uplink")
-    alert(result)
-    pass
+    @handle("button_1", "click")
+    def button_1_click(self, **event_args):
+        result = anvil.server.call("test_uplink")
+        alert(result)
 
   
 

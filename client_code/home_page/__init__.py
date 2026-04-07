@@ -62,6 +62,23 @@ class home_page(home_pageTemplate):
 
   @handle("home_btn", "click")
   def home_btn_click(self, **event_args):
+    open_form('home_page')
+
+  @handle("eval_btn", "click")
+  def eval_btn_click(self, **event_args):
+    open_form('eval_form_final')
+
+  @handle("button_3", "click")
+  def button_3_click(self, **event_args):
+    open_form('tabular_search')
+
+  @handle("chart_btn", "click")
+  def chart_btn_click(self, **event_args):
+    open_form('charts')
+
+  @handle("dashboard_btn", "click")
+  def dashboard_btn_click(self, **event_args):
+    open_form('professor_dashboard')
 
   
 
