@@ -16,6 +16,6 @@ class RowTemplate6(RowTemplate6Template):
     self.course_id_label.text = self.item["course_id"]
     self.group_name_label.text = self.item["group_name"]
     self.created_at_label.text = self.item["created_at"]
-    self.due_at_label.text = self.item["due_at"]
+   
 
     # Any code you write here will run before the form opens.
