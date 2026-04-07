@@ -8,22 +8,42 @@ from anvil.tables import app_tables
 
 class professor_dashboard(professor_dashboardTemplate):
   def __init__(self, **properties):
-    # Set Form properties and Data Bindings.
+    user = anvil.users.get_user()
+    if not user or user['role'] not in ['professor', 'admin']:
+      alert("Access Denied")
+      open_form('login')
+      return
     self.init_components(**properties)
-
-    # Any code you write here will run before the form opens.
 
   @handle("student_page", "click")
   def student_page_click(self, **event_args):
     open_form('import_students')
-    pass
 
   @handle("course_page", "click")
   def course_page_click(self, **event_args):
     open_form('import_courses')
-    pass
 
   @handle("group_page", "click")
   def group_page_click(self, **event_args):
     open_form('import_groups')
-    pass
+
+  @handle("home_btn", "click")
+  def home_btn_click(self, **event_args):
+    open_form('home_page')
+
+  @handle("eval_btn", "click")
+  def eval_btn_click(self, **event_args):
+    open_form('eval_form_final')
+
+  @handle("button_3", "click")
+  def button_3_click(self, **event_args):
+    open_form('tabular_search')
+
+  @handle("chart_btn", "click")
+  def chart_btn_click(self, **event_args):
+    open_form('charts')
+
+  @handle("dashboard_btn", "click")
+  def dashboard_btn_click(self, **event_args):
+    open_form('professor_dashboard')
+  

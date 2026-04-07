@@ -10,15 +10,18 @@ components:
     name: eval_btn
     properties: {foreground: 'theme:White', text: Evaluations}
     type: Button
-  - layout_properties: {}
+  - event_bindings: {}
+    layout_properties: {}
     name: button_3
     properties: {foreground: 'theme:White', text: Profile}
     type: Button
-  - layout_properties: {expand: false, width: 33}
+  - event_bindings: {}
+    layout_properties: {expand: false, width: 33}
     name: chart_btn
     properties: {foreground: 'theme:White', role: null, text: Charts}
     type: Button
-  - layout_properties: {}
+  - event_bindings: {}
+    layout_properties: {}
     name: dashboard_btn
     properties: {foreground: 'theme:White', role: null, text: Prof Dashboard}
     type: Button
