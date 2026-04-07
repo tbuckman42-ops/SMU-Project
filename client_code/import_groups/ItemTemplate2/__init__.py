@@ -1,4 +1,4 @@
-from ._anvil_designer import RowTemplate5Template
+from ._anvil_designer import ItemTemplate2Template
 from anvil import *
 import anvil.server
 import anvil.users
@@ -6,14 +6,10 @@ import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
 
-class RowTemplate5(RowTemplate5Template):
+
+class ItemTemplate2(ItemTemplate2Template):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
-    self.student_id_label.text = self.item["student_id"]
-    self.first_name_label.text = self.item["first_name"]
-    self.last_name_label.text = self.item["last_name"]
-    self.email_label.text = self.item["email"]
-    
 
     # Any code you write here will run before the form opens.

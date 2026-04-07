@@ -1,0 +1,27 @@
+components:
+- layout_properties: {column: JKSDUP}
+  name: group_id_label
+  properties: {}
+  type: Label
+- layout_properties: {column: VJQQOR}
+  name: student_id_label
+  properties: {}
+  type: Label
+- layout_properties: {column: OJLQEN}
+  name: course_id_label
+  properties: {}
+  type: Label
+- layout_properties: {column: KCONSW}
+  name: group_name_label
+  properties: {}
+  type: Label
+- layout_properties: {column: WINBRO}
+  name: created_at_label
+  properties: {}
+  type: Label
+- layout_properties: {column: MCEFJH}
+  name: due_at_label
+  properties: {}
+  type: Label
+container: {type: DataRowPanel}
+is_package: true

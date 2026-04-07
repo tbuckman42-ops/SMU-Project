@@ -18,7 +18,8 @@ components:
     name: chart_btn
     properties: {foreground: 'theme:White', role: null, text: Charts}
     type: Button
-  - layout_properties: {}
+  - event_bindings: {}
+    layout_properties: {}
     name: dashboard_btn
     properties: {foreground: 'theme:White', role: null, text: Prof Dashboard}
     type: Button
@@ -32,7 +33,7 @@ components:
   type: Label
 - components:
   - layout_properties: {}
-    name: student_uploader
+    name: groups_uploader
     properties: {background: '#07123b', foreground: 'theme:White', text: Select File}
     type: FileLoader
   layout_properties: {grid_position: 'ZTHAGN,XLFDFO'}
@@ -40,27 +41,28 @@ components:
   properties: {align: center}
   type: FlowPanel
 - components:
-  - name: repeating_panel_group
-    properties: {item_template: import_students.RowTemplate5}
+  - name: repeating_panel_1
+    properties: {item_template: import_groups.RowTemplate6}
     type: RepeatingPanel
-  layout_properties: {full_width_row: false, grid_position: 'CXWCAI,YTTVFL'}
-  name: group_data
+  layout_properties: {grid_position: 'BWBBKX,NYZRQE'}
+  name: data_grid_1
   properties:
     columns:
     - {data_key: column_1, id: JKSDUP, title: Group ID}
-    - {data_key: column_4, id: DYCKJS, title: Student ID}
-    - {data_key: column_2, id: VJQQOR, title: Course ID}
-    - {data_key: column_3, id: OJLQEN, title: Group Name}
-    - {data_key: column_1, id: VXVLSS, title: Time Created}
-    - {data_key: column_2, id: RQGXDQ, title: Due Date}
+    - {data_key: column_2, id: VJQQOR, title: Student ID}
+    - {data_key: column_3, id: OJLQEN, title: Course ID}
+    - {data_key: column_1, id: KCONSW, title: Group Name}
+    - {data_key: column_1, id: WINBRO, title: Time Created}
+    - {data_key: column_2, id: MCEFJH, title: Due Date}
   type: DataGrid
 - components:
   - layout_properties: {}
-    name: cancel_btn_student
+    name: cancel_btn_groups
     properties: {background: '#e91616', foreground: 'theme:White', text: Clear Inputs}
     type: Button
-  - layout_properties: {}
-    name: import_student_btn
+  - event_bindings: {}
+    layout_properties: {}
+    name: import_groups_btn
     properties: {background: '#07123b', foreground: 'theme:White', text: Confirm Import}
     type: Button
   layout_properties: {grid_position: 'TLAWTA,XEUSLW'}

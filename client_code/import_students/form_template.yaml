@@ -18,7 +18,8 @@ components:
     name: chart_btn
     properties: {foreground: 'theme:White', role: null, text: Charts}
     type: Button
-  - layout_properties: {}
+  - event_bindings: {}
+    layout_properties: {}
     name: dashboard_btn
     properties: {foreground: 'theme:White', role: null, text: Prof Dashboard}
     type: Button
@@ -50,14 +51,15 @@ components:
     - {data_key: column_4, id: DYCKJS, title: Student ID}
     - {data_key: column_1, id: JKSDUP, title: First Name}
     - {data_key: column_3, id: OJLQEN, title: Last Name}
-    - {data_key: column_2, id: VJQQOR, title: Email}
+    - {data_key: column_2, expand: false, id: VJQQOR, title: Email, width: 227.35546875}
   type: DataGrid
 - components:
   - layout_properties: {}
     name: cancel_btn_student
     properties: {background: '#e91616', foreground: 'theme:White', text: Clear Inputs}
     type: Button
-  - layout_properties: {}
+  - event_bindings: {}
+    layout_properties: {}
     name: import_student_btn
     properties: {background: '#07123b', foreground: 'theme:White', text: Confirm Import}
     type: Button
