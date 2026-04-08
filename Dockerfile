@@ -14,4 +14,4 @@ COPY . .
 
 EXPOSE 3030
 
-CMD bash -c "python anvil_uplink_copy.py & anvil-app-server --app /app --port 3030 --origin https://smu-project-production.up.railway.app --database postgresql://postgres:xudmdAhBWjBbdSSTuWIOOkFpZdCHYskx@maglev.proxy.rlwy.net:11616/railway"
+CMD bash -c "python anvil_uplink_copy.py & anvil-app-server --app /app --port 3030 --origin https://smu-project-production.up.railway.app --database jdbc:postgresql://maglev.proxy.rlwy.net:11616/railway?user=postgres&password=xudmdAhBWjBbdSSTuWIOOkFpZdCHYskx"
