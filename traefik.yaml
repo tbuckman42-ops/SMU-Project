@@ -1,7 +1,0 @@
-entryPoints:
-  web:
-    address: ":8080"
-
-providers:
-  file:
-    filename: /dev/null
