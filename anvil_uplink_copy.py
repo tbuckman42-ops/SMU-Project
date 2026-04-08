@@ -74,6 +74,22 @@ def make_submission_id():
     return submission_id
 
 @anvil.server.callable
+def get_all_students():
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT student_id, first_name, last_name
+        FROM Student
+        ORDER BY last_name, first_name
+    """)
+
+    rows = cursor.fetchall()
+    cursor.close()
+
+    return [(f"{row[1]} {row[2]}", row[0]) for row in rows]
+
+@anvil.server.callable
 def get_courses():
     conn = get_connection()
     cursor = conn.cursor()
