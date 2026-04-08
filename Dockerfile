@@ -26,4 +26,16 @@ RUN pip install anvil-app-server anvil-uplink pyodbc
 
 EXPOSE 3030
 
-CMD ["bash", "-c", "python anvil_uplink_copy.py & anvil-app-server --app /app --port 3030 --origin http://smu-project-production.up.railway.app --database jdbc:postgresql://maglev.proxy.rlwy.net:11616/railway?user=postgres&password=xudmdAhBWjBbdSSTuWIOOkFpZdCHYskx"]
+FROM python:3.11
+
+RUN apt-get update && apt-get install -y default-jdk unixodbc-dev
+
+WORKDIR /app
+
+COPY . .
+
+RUN pip install anvil-app-server anvil-uplink pyodbc
+
+EXPOSE 3030
+
+CMD bash -c "echo 'CMD IS RUNNING' && echo 'Starting uplink' && python anvil_uplink_copy.py & echo 'Starting anvil server' && anvil-app-server --app /app --port 3030 --origin http://smu-project-production.up.railway.app --database jdbc:postgresql://maglev.proxy.rlwy.net:11616/railway?user=postgres&password=xudmdAhBWjBbdSSTuWIOOkFpZdCHYskx 2>&1"
