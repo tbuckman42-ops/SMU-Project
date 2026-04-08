@@ -10,4 +10,4 @@ RUN pip install anvil-app-server anvil-uplink pyodbc
 
 EXPOSE 8080
 
-CMD bash -c "python anvil_uplink_copy.py & anvil-app-server --app /app --port 8080 --auto-migrate --origin https://smu-project-production.up.railway.app --config-file /app/traefik.toml --database 'jdbc:postgresql://maglev.proxy.rlwy.net:11616/railway?user=postgres&password=xudmdAhBWjBbdSSTuWIOOkFpZdCHYskx&sslmode=require' 2>&1"
+CMD bash -c "python anvil_uplink_copy.py & anvil-app-server --app /app --port 8080 --auto-migrate --origin https://smu-project-production.up.railway.app --database 'jdbc:postgresql://maglev.proxy.rlwy.net:11616/railway?user=postgres&password=xudmdAhBWjBbdSSTuWIOOkFpZdCHYskx&sslmode=require' --letsencrypt-storage /dev/null 2>&1"
