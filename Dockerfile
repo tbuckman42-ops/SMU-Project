@@ -10,4 +10,4 @@ RUN pip install anvil-app-server anvil-uplink pyodbc
 
 EXPOSE 3030
 
-CMD bash -c "python anvil_uplink_copy.py & anvil-app-server --app /app --port 3030 --origin https://smu-project-production.up.railway.app --database none"
+CMD bash -c "python anvil_uplink_copy.py & anvil-app-server --app /app --port 3030 --origin https://smu-project-production.up.railway.app --database none --config-file /app/anvil.yaml"
