@@ -7,13 +7,15 @@ import csv
 from io import StringIO
 import random
 from datetime import datetime
+
 anvil.server.connect("server_OGC7RK4HCOVMD4R7F3TLKL44-YL4HR25YYQEGSUOY")
+
 # Azure SQL Database connection parameters
 server = 'peer-eval-server.database.windows.net'
 database = 'peer-eval-db'
 username = 'SeanLogin'
 password = 'Peerevaldb#'
-driver =  "/opt/homebrew/lib/libmsodbcsql.18.dylib" #'{ODBC Driver 18 for SQL Server}'
+driver = 'ODBC Driver 18 for SQL Server'
 
 # Connection string
 connection_string = f'Driver={driver};Server={server};Database={database};Uid={username};Pwd={password};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;'
@@ -58,7 +60,6 @@ def make_submission_id():
     while True:
         num = random.randint(0, 999)
         submission_id = f"SUB{num:03d}"
-
 
         cursor.execute("""
             SELECT 1
@@ -143,7 +144,6 @@ def get_students_for_group(group_name, evaluator_student_id):
 
     return [(f"{row[1]} {row[2]}", row[0]) for row in rows]
 
-
 @anvil.server.callable
 def create_evaluation(course_id, group_name, due_at):
     conn = get_connection()
@@ -176,9 +176,6 @@ def create_evaluation(course_id, group_name, due_at):
         "evaluation_id": evaluation_id
     }
 
-
-
-
 @anvil.server.callable
 def save_evaluation_score(
     evaluation_id,
@@ -197,7 +194,6 @@ def save_evaluation_score(
     conn = get_connection()
     cursor = conn.cursor()
 
-    # check evaluation exists
     cursor.execute("""
         SELECT 1
         FROM Evaluation
@@ -206,16 +202,17 @@ def save_evaluation_score(
     if cursor.fetchone() is None:
         cursor.close()
         raise ValueError("Invalid evaluation_id.")
-    # check both students exist
+
     cursor.execute("SELECT 1 FROM Student WHERE student_id = ?", (evaluator_student_id,))
     if cursor.fetchone() is None:
         cursor.close()
         raise ValueError("Invalid evaluator_student_id.")
+
     cursor.execute("SELECT 1 FROM Student WHERE student_id = ?", (evaluated_student_id,))
     if cursor.fetchone() is None:
         cursor.close()
         raise ValueError("Invalid evaluated_student_id.")
-    #to stop duplicates
+
     cursor.execute("""
         SELECT 1
         FROM Peer_Evaluation_Submission
@@ -227,7 +224,7 @@ def save_evaluation_score(
     if cursor.fetchone() is not None:
         cursor.close()
         raise ValueError("This evaluation has already been submitted for that student.")
-    
+
     submission_id = make_submission_id()
     submission_time = datetime.now()
 
@@ -277,6 +274,7 @@ def save_evaluation_score(
         "message": "Evaluation submitted successfully.",
         "submission_id": submission_id
     }
+
 @anvil.server.callable
 def send_to_zoho(payload):
     response = requests.post(
@@ -285,17 +283,11 @@ def send_to_zoho(payload):
         headers={"Content-Type": "application/json"})
     
     response.raise_for_status()
-    return {"text": response.text, "status_code":response.status_code}
-
-
+    return {"text": response.text, "status_code": response.status_code}
 
 def parse_datetime(dt_string):
     dt_string = dt_string.strip()
     return datetime.fromisoformat(dt_string)
-
-
-
-# PARSE STUDENTS CSV
 
 @anvil.server.callable
 def parse_students_csv(file):
@@ -321,10 +313,6 @@ def parse_students_csv(file):
         })
 
     return rows
-
-
-
-# IMPORT STUDENTS
 
 @anvil.server.callable
 def import_students_from_grid(rows):
@@ -373,10 +361,6 @@ def import_students_from_grid(rows):
         cursor.close()
         conn.close()
 
-
-
-# PARSE COURSES CSV
-
 @anvil.server.callable
 def parse_courses_csv(file):
     file_text = file.get_bytes().decode("utf-8-sig")
@@ -400,9 +384,6 @@ def parse_courses_csv(file):
         })
 
     return rows
-
-
-# IMPORT COURSES
 
 @anvil.server.callable
 def import_courses_from_grid(rows):
@@ -461,10 +442,6 @@ def import_courses_from_grid(rows):
         cursor.close()
         conn.close()
 
-
-
-# PARSE GROUPS CSV
-
 @anvil.server.callable
 def parse_groups_csv(file):
     file_text = file.get_bytes().decode("utf-8-sig")
@@ -486,93 +463,7 @@ def parse_groups_csv(file):
             "course_id": row["course_id"].strip(),
             "student_id": row["student_id"].strip(),
             "group_name": row["group_name"].strip(),
-            "created_at": row["created_at"].strip()
-        })
-
-    return rows
-
-
-
-# IMPORT GROUPS
-
-@anvil.server.callable
-def import_groups_from_grid(rows):
-    conn = get_connection()
-    cursor = conn.cursor()
-
-    inserted_rows = 0
-    skipped_rows = 0
-
-    try:
-        for row in rows:
-            group_id = row["group_id"].strip()
-            course_id = row["course_id"].strip()
-            student_id = row["student_id"].strip()
-            group_name = row["group_name"].strip()
-            created_at = parse_datetime(row["created_at"])
-
-            cursor.execute("""
-                SELECT course_id
-                FROM COURSE
-                WHERE course_id = ?
-            """, (course_id,))
-            existing_course = cursor.fetchone()
-
-            if not existing_course:
-                skipped_rows += 1
-                continue
-
-            cursor.execute("""
-                SELECT student_id
-                FROM STUDENT
-                WHERE student_id = ?
-            """, (student_id,))
-            existing_student = cursor.fetchone()
-
-            if not existing_student:
-                skipped_rows += 1
-                continue
-
-            cursor.execute("""
-                SELECT group_id
-                FROM STUDENT_GROUP
-                WHERE group_id = ?
-            """, (group_id,))
-            existing_group = cursor.fetchone()
-
-            if existing_group:
-                skipped_rows += 1
-                continue
-
-            cursor.execute("""
-                INSERT INTO STUDENT_GROUP (group_id, course_id, student_id, group_name, created_at)
-                VALUES (?, ?, ?, ?, ?)
-            """, (group_id, course_id, student_id, group_name, created_at))
-
-            inserted_rows += 1
-
-        conn.commit()
-
-        return {
-            "message": f"Import complete. {inserted_rows} groups inserted, {skipped_rows} skipped."
-        }
-
-    except Exception as e:
-        conn.rollback()
-        raise e
-
-    finally:
-        cursor.close()
-        conn.close()
-
-
-
-@anvil.server.callable
-def test_uplink():
-    return "Uplink is working!"
-# --- connect to Anvil (ALWAYS at bottom) ---
-
-anvil.server.wait_forever()
+            "created_at": row["created_a
 
 
     
