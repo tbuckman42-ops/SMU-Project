@@ -1,7 +1,10 @@
 import pyodbc
 import os
 import anvil.server
+import anvil.media
 import requests
+import csv
+from io import StringIO
 import random
 from datetime import datetime
 anvil.server.connect("server_OGC7RK4HCOVMD4R7F3TLKL44-YL4HR25YYQEGSUOY")
@@ -283,6 +286,284 @@ def send_to_zoho(payload):
     
     response.raise_for_status()
     return {"text": response.text, "status_code":response.status_code}
+
+
+
+def parse_datetime(dt_string):
+    dt_string = dt_string.strip()
+    return datetime.fromisoformat(dt_string)
+
+
+
+# PARSE STUDENTS CSV
+
+@anvil.server.callable
+def parse_students_csv(file):
+    file_text = file.get_bytes().decode("utf-8-sig")
+    csv_reader = csv.DictReader(StringIO(file_text))
+
+    required_columns = ["student_id", "first_name", "last_name", "email"]
+
+    if not csv_reader.fieldnames:
+        raise Exception("The CSV file is empty or invalid.")
+
+    missing = [col for col in required_columns if col not in csv_reader.fieldnames]
+    if missing:
+        raise Exception("Missing required columns: " + ", ".join(missing))
+
+    rows = []
+    for row in csv_reader:
+        rows.append({
+            "student_id": row["student_id"].strip(),
+            "first_name": row["first_name"].strip(),
+            "last_name": row["last_name"].strip(),
+            "email": row["email"].strip().lower()
+        })
+
+    return rows
+
+
+
+# IMPORT STUDENTS
+
+@anvil.server.callable
+def import_students_from_grid(rows):
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    inserted_rows = 0
+    skipped_rows = 0
+
+    try:
+        for row in rows:
+            student_id = row["student_id"].strip()
+            first_name = row["first_name"].strip()
+            last_name = row["last_name"].strip()
+            email = row["email"].strip().lower()
+
+            cursor.execute("""
+                SELECT student_id
+                FROM STUDENT
+                WHERE student_id = ?
+            """, (student_id,))
+            existing_student = cursor.fetchone()
+
+            if existing_student:
+                skipped_rows += 1
+                continue
+
+            cursor.execute("""
+                INSERT INTO STUDENT (student_id, first_name, last_name, email)
+                VALUES (?, ?, ?, ?)
+            """, (student_id, first_name, last_name, email))
+
+            inserted_rows += 1
+
+        conn.commit()
+
+        return {
+            "message": f"Import complete. {inserted_rows} students inserted, {skipped_rows} skipped."
+        }
+
+    except Exception as e:
+        conn.rollback()
+        raise e
+
+    finally:
+        cursor.close()
+        conn.close()
+
+
+
+# PARSE COURSES CSV
+
+@anvil.server.callable
+def parse_courses_csv(file):
+    file_text = file.get_bytes().decode("utf-8-sig")
+    csv_reader = csv.DictReader(StringIO(file_text))
+
+    required_columns = ["course_id", "course_name", "professor_id"]
+
+    if not csv_reader.fieldnames:
+        raise Exception("The CSV file is empty or invalid.")
+
+    missing = [col for col in required_columns if col not in csv_reader.fieldnames]
+    if missing:
+        raise Exception("Missing required columns: " + ", ".join(missing))
+
+    rows = []
+    for row in csv_reader:
+        rows.append({
+            "course_id": row["course_id"].strip(),
+            "course_name": row["course_name"].strip(),
+            "professor_id": row["professor_id"].strip()
+        })
+
+    return rows
+
+
+# IMPORT COURSES
+
+@anvil.server.callable
+def import_courses_from_grid(rows):
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    inserted_rows = 0
+    skipped_rows = 0
+
+    try:
+        for row in rows:
+            course_id = row["course_id"].strip()
+            course_name = row["course_name"].strip()
+            professor_id = row["professor_id"].strip()
+
+            cursor.execute("""
+                SELECT course_id
+                FROM COURSE
+                WHERE course_id = ?
+            """, (course_id,))
+            existing_course = cursor.fetchone()
+
+            if existing_course:
+                skipped_rows += 1
+                continue
+
+            cursor.execute("""
+                SELECT professor_id
+                FROM PROFESSOR
+                WHERE professor_id = ?
+            """, (professor_id,))
+            existing_professor = cursor.fetchone()
+
+            if not existing_professor:
+                skipped_rows += 1
+                continue
+
+            cursor.execute("""
+                INSERT INTO COURSE (course_id, course_name, professor_id)
+                VALUES (?, ?, ?)
+            """, (course_id, course_name, professor_id))
+
+            inserted_rows += 1
+
+        conn.commit()
+
+        return {
+            "message": f"Import complete. {inserted_rows} courses inserted, {skipped_rows} skipped."
+        }
+
+    except Exception as e:
+        conn.rollback()
+        raise e
+
+    finally:
+        cursor.close()
+        conn.close()
+
+
+
+# PARSE GROUPS CSV
+
+@anvil.server.callable
+def parse_groups_csv(file):
+    file_text = file.get_bytes().decode("utf-8-sig")
+    csv_reader = csv.DictReader(StringIO(file_text))
+
+    required_columns = ["group_id", "course_id", "student_id", "group_name", "created_at"]
+
+    if not csv_reader.fieldnames:
+        raise Exception("The CSV file is empty or invalid.")
+
+    missing = [col for col in required_columns if col not in csv_reader.fieldnames]
+    if missing:
+        raise Exception("Missing required columns: " + ", ".join(missing))
+
+    rows = []
+    for row in csv_reader:
+        rows.append({
+            "group_id": row["group_id"].strip(),
+            "course_id": row["course_id"].strip(),
+            "student_id": row["student_id"].strip(),
+            "group_name": row["group_name"].strip(),
+            "created_at": row["created_at"].strip()
+        })
+
+    return rows
+
+
+
+# IMPORT GROUPS
+
+@anvil.server.callable
+def import_groups_from_grid(rows):
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    inserted_rows = 0
+    skipped_rows = 0
+
+    try:
+        for row in rows:
+            group_id = row["group_id"].strip()
+            course_id = row["course_id"].strip()
+            student_id = row["student_id"].strip()
+            group_name = row["group_name"].strip()
+            created_at = parse_datetime(row["created_at"])
+
+            cursor.execute("""
+                SELECT course_id
+                FROM COURSE
+                WHERE course_id = ?
+            """, (course_id,))
+            existing_course = cursor.fetchone()
+
+            if not existing_course:
+                skipped_rows += 1
+                continue
+
+            cursor.execute("""
+                SELECT student_id
+                FROM STUDENT
+                WHERE student_id = ?
+            """, (student_id,))
+            existing_student = cursor.fetchone()
+
+            if not existing_student:
+                skipped_rows += 1
+                continue
+
+            cursor.execute("""
+                SELECT group_id
+                FROM STUDENT_GROUP
+                WHERE group_id = ?
+            """, (group_id,))
+            existing_group = cursor.fetchone()
+
+            if existing_group:
+                skipped_rows += 1
+                continue
+
+            cursor.execute("""
+                INSERT INTO STUDENT_GROUP (group_id, course_id, student_id, group_name, created_at)
+                VALUES (?, ?, ?, ?, ?)
+            """, (group_id, course_id, student_id, group_name, created_at))
+
+            inserted_rows += 1
+
+        conn.commit()
+
+        return {
+            "message": f"Import complete. {inserted_rows} groups inserted, {skipped_rows} skipped."
+        }
+
+    except Exception as e:
+        conn.rollback()
+        raise e
+
+    finally:
+        cursor.close()
+        conn.close()
 
 
 
