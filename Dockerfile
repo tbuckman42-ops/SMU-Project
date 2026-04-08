@@ -6,6 +6,6 @@ WORKDIR /app
 
 COPY . .
 
-RUN pip install anvil-uplink pyodbc
+RUN pip install anvil-uplink pyodbc requests
 
 CMD python anvil_uplink_copy.py
