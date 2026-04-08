@@ -13,7 +13,7 @@ server = 'peer-eval-server.database.windows.net'
 database = 'peer-eval-db'
 username = 'SeanLogin'
 password = 'Peerevaldb#'
-driver =  "/opt/homebrew/lib/libmsodbcsql.18.dylib" #'{ODBC Driver 18 for SQL Server}'
+driver = 'ODBC Driver 18 for SQL Server'
 
 # Connection string
 connection_string = f'Driver={driver};Server={server};Database={database};Uid={username};Pwd={password};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;'
