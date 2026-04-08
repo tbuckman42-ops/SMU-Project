@@ -4,9 +4,13 @@ RUN apt-get update && apt-get install -y default-jdk unixodbc-dev
 
 WORKDIR /app
 
-COPY . .
-
 RUN pip install anvil-app-server anvil-uplink pyodbc
+
+RUN anvil-app-server --get-source 2>/dev/null || true
+
+RUN wget https://jdbc.postgresql.org/download/postgresql-42.7.3.jar -O /usr/local/lib/postgresql.jar
+
+COPY . .
 
 EXPOSE 3030
 
