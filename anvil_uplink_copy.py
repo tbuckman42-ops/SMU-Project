@@ -145,7 +145,7 @@ def get_students_for_group(group_name, evaluator_student_id):
 
 
 @anvil.server.callable
-def create_evaluation(course_id, group_name, due_at):
+def create_evaluation(course_id):
     conn = get_connection()
     cursor = conn.cursor()
 
@@ -156,25 +156,47 @@ def create_evaluation(course_id, group_name, due_at):
         INSERT INTO Evaluation (
             evaluation_id,
             course_id,
-            group_name,
-            created_at,
-            due_at
+            created_at
         )
-        VALUES (?, ?, ?, ?, ?)
+        VALUES (?, ?, ?)
     """, (
         evaluation_id,
         course_id,
-        group_name,
         created_at,
-        due_at
     ))
     conn.commit()
     cursor.close()
 
     return {
-        "group_name": group_name,
         "evaluation_id": evaluation_id
     }
+@anvil.server.callable
+def get_all_students(group_name, evaluator_student_id):
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT 
+            s.student_id,
+            s.first_name,
+            s.last_name
+        FROM Student s
+        JOIN Group_Member gm
+            ON s.student_id = gm.student_id
+        JOIN Student_Group sg
+            ON gm.group_id = sg.group_id
+        WHERE sg.group_name = ?
+          AND s.student_id <> ?
+        ORDER BY s.last_name, s.first_name
+    """, (group_name, evaluator_student_id))
+
+    rows = cursor.fetchall()
+    cursor.close()
+
+    return [
+        (f"{row[1]} {row[2]}", row[0])
+        for row in rows
+    ]
 
 
 
@@ -196,6 +218,8 @@ def save_evaluation_score(
 
     conn = get_connection()
     cursor = conn.cursor()
+
+    
 
     # check evaluation exists
     cursor.execute("""
