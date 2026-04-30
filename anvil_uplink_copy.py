@@ -556,50 +556,57 @@ def import_groups_from_grid(rows):
             group_name = row["group_name"].strip()
             created_at = parse_datetime(row["created_at"])
 
+            # Check course exists
             cursor.execute("""
                 SELECT course_id
                 FROM COURSE
                 WHERE course_id = ?
             """, (course_id,))
-            existing_course = cursor.fetchone()
-
-            if not existing_course:
+            if not cursor.fetchone():
                 skipped_rows += 1
                 continue
 
+            # Check student exists
             cursor.execute("""
                 SELECT student_id
                 FROM STUDENT
                 WHERE student_id = ?
             """, (student_id,))
-            existing_student = cursor.fetchone()
-
-            if not existing_student:
+            if not cursor.fetchone():
                 skipped_rows += 1
                 continue
 
+            # Insert into STUDENT_GROUP if it doesn't exist yet
             cursor.execute("""
-                SELECT group_id, student_id
+                SELECT group_id
                 FROM STUDENT_GROUP
+                WHERE group_id = ?
+            """, (group_id,))
+            if not cursor.fetchone():
+                cursor.execute("""
+                    INSERT INTO STUDENT_GROUP (group_id, course_id, group_name, created_at)
+                    VALUES (?, ?, ?, ?)
+                """, (group_id, course_id, group_name, created_at))
+
+            # Insert into GROUP_MEMBER if not already linked
+            cursor.execute("""
+                SELECT 1
+                FROM GROUP_MEMBER
                 WHERE group_id = ? AND student_id = ?
             """, (group_id, student_id))
-            existing_group = cursor.fetchone()
-
-            if existing_group:
+            if not cursor.fetchone():
+                cursor.execute("""
+                    INSERT INTO GROUP_MEMBER (group_id, student_id)
+                    VALUES (?, ?)
+                """, (group_id, student_id))
+                inserted_rows += 1
+            else:
                 skipped_rows += 1
-                continue
-
-            cursor.execute("""
-                INSERT INTO STUDENT_GROUP (group_id, course_id, student_id, group_name, created_at)
-                VALUES (?, ?, ?, ?, ?)
-            """, (group_id, course_id, student_id, group_name, created_at))
-
-            inserted_rows += 1
 
         conn.commit()
 
         return {
-            "message": f"Import complete. {inserted_rows} groups inserted, {skipped_rows} skipped."
+            "message": f"Import complete. {inserted_rows} members inserted, {skipped_rows} skipped."
         }
 
     except Exception as e:
